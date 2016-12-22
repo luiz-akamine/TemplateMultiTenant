@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04 TemplateMultiTenant.Domain", "TemplateMultiTenant.Domain\04 TemplateMultiTenant.Domain.csproj", "{FA2E32CC-5CCA-4EFA-BC47-0D921EDAA081}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.2 TemplateMultiTenant.API", "TemplateMultiTenant.API\02.2 TemplateMultiTenant.API.csproj", "{D27B794C-7DA7-42C5-B4D0-8D46038532FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01 TemplateMultiTenant.UI", "TemplateMultiTenant.UI\01 TemplateMultiTenant.UI.csproj", "{01FF1333-C251-41DD-9F62-2C41187C272D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03 TemplateMultiTenant.Infra", "TemplateMultiTenant.Infra\03 TemplateMultiTenant.Infra.csproj", "{E8354912-164C-4C0F-BFA3-910B5A7380C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.1 TemplateMultiTenant.Auth", "TemplateMultiTenant.Auth\02.1 TemplateMultiTenant.Auth.csproj", "{B9798E61-1E6F-4481-99A7-C356F8EE4809}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FA2E32CC-5CCA-4EFA-BC47-0D921EDAA081}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA2E32CC-5CCA-4EFA-BC47-0D921EDAA081}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA2E32CC-5CCA-4EFA-BC47-0D921EDAA081}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA2E32CC-5CCA-4EFA-BC47-0D921EDAA081}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D27B794C-7DA7-42C5-B4D0-8D46038532FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D27B794C-7DA7-42C5-B4D0-8D46038532FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D27B794C-7DA7-42C5-B4D0-8D46038532FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D27B794C-7DA7-42C5-B4D0-8D46038532FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01FF1333-C251-41DD-9F62-2C41187C272D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01FF1333-C251-41DD-9F62-2C41187C272D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01FF1333-C251-41DD-9F62-2C41187C272D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01FF1333-C251-41DD-9F62-2C41187C272D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8354912-164C-4C0F-BFA3-910B5A7380C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8354912-164C-4C0F-BFA3-910B5A7380C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8354912-164C-4C0F-BFA3-910B5A7380C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8354912-164C-4C0F-BFA3-910B5A7380C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9798E61-1E6F-4481-99A7-C356F8EE4809}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9798E61-1E6F-4481-99A7-C356F8EE4809}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9798E61-1E6F-4481-99A7-C356F8EE4809}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9798E61-1E6F-4481-99A7-C356F8EE4809}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
