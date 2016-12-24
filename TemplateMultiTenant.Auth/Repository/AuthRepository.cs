@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.Owin.Security.DataProtection;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace TemplateMultiTenant.Auth.Repository
 {
@@ -22,7 +24,11 @@ namespace TemplateMultiTenant.Auth.Repository
         public AuthRepository()
         {
             _ctx = new AuthContext();
+
             _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_ctx));
+            var provider = new DpapiDataProtectionProvider("Sample");
+            _userManager.UserTokenProvider = new DataProtectorTokenProvider<IdentityUser>(
+                provider.Create("ResetPasswordToken"));
         }
 
         //Método que cadastra client
@@ -92,6 +98,14 @@ namespace TemplateMultiTenant.Auth.Repository
                     select c).FirstOrDefault();
         }
 
+        public Client FindClientByCNPJ(int cnpj)
+        {
+
+            return (from c in _ctx.Clients
+                    where c.CNPJ == cnpj && c.CNPJ != 0
+                    select c).FirstOrDefault();
+        }
+
 
         //Método que cadastra usuário
         //você usa a palavra-chave async na declaração de uma função que dependa da palavra-chave await
@@ -99,7 +113,8 @@ namespace TemplateMultiTenant.Auth.Repository
         {
             IdentityUser user = new IdentityUser
             {
-                UserName = userModel.UserName                
+                UserName = userModel.UserName,
+                Email = userModel.Email                
             };            
 
             //Verificando se existe client
@@ -144,6 +159,62 @@ namespace TemplateMultiTenant.Auth.Repository
             _userManager.Dispose();
         }
 
+
+        //Método que altera senha
+        //você usa a palavra-chave async na declaração de uma função que dependa da palavra-chave await
+        public async Task<IdentityResult> ChangePassword(ChangePasswordModel changePasswordModel)
+        {
+            IdentityUser user = await _userManager.FindAsync(changePasswordModel.UserName, changePasswordModel.OldPassword);
+
+            //Checando se já existe
+            if (user == null)
+            {
+                throw new ApplicationException("incorrect user or password");
+            }
+
+            var result = _userManager.ChangePassword(user.Id, changePasswordModel.OldPassword, changePasswordModel.NewPassword);
+
+            return result;
+        }
+
+        //Método que reseta senha "simples" (implementar depois o modo com envio de email)
+        //você usa a palavra-chave async na declaração de uma função que dependa da palavra-chave await
+        public async Task<IdentityResult> ResetPasswordSimple(ResetPasswordSimpleModel resetPasswordModel)
+        {
+            //Validações            
+            //Verificando se existe client
+            Client client = FindClientById(resetPasswordModel.ClientId);
+            if (client == null)
+            {
+                throw new ApplicationException("client not found");
+            }
+            //Verificando se existe client pelo CNPJ
+            Client clientByCNPJ = FindClientByCNPJ(resetPasswordModel.CNPJ);
+            if (clientByCNPJ == null)
+            {
+                throw new ApplicationException("incorrect CNPJ");
+            }
+            //Checando se já existe usuario pelo username
+            IdentityUser user = await _userManager.FindByNameAsync(resetPasswordModel.UserName);
+            if (user == null)
+            {
+                throw new ApplicationException("user not found");
+            }            
+            //Checando se já existe usuario pelo email
+            IdentityUser userByEmail = await _userManager.FindByEmailAsync(resetPasswordModel.Email);
+            if (userByEmail == null)
+            {
+                throw new ApplicationException("incorrect e-mail");
+            }
+
+            //Gerando token de reset de senha
+            var tokenResetPassword = _userManager.GeneratePasswordResetToken(user.Id);
+
+            //Resetando senha
+            var result = await _userManager.ResetPasswordAsync(user.Id, tokenResetPassword, resetPasswordModel.NewPassword);
+
+            return result;
+        }
 
         /*********************************************************
                      IMPLEMENTAÇÃO DO REFRESH TOKEN 

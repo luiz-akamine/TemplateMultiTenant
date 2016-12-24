@@ -199,6 +199,8 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\ClientModel.cs" />
     <Compile Include="ViewModel\ExternalLoginModels.cs" />
+    <Compile Include="ViewModel\ChangePasswordModel.cs" />
+    <Compile Include="ViewModel\ResetPasswordSimpleModel.cs" />
     <Compile Include="ViewModel\UserModel.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\RefreshToken.cs" />

@@ -95,7 +95,77 @@ namespace TemplateMultiTenant.Auth.Controllers
             return Ok();
         }
 
-        
+
+        //API para alteração de senha de usuário
+        // POST api/Account/ChangePassword
+        [AllowAnonymous]
+        [Route("ChangePassword")]
+        public async Task<IHttpActionResult> ChangePassword(ChangePasswordModel changePasswordModel)
+        {
+            //ModelState é um dicionário disponível na classe base do controlador que armazena as informações adicionais e de estado sobre o modelo
+            //O ModelState têm dois propósitos:
+            //1.Armazenar o valor submetido ao servidor
+            //2.Armazenar os erros de validação associados com esses valores
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            //Tentando alterar senha de usuário
+            try
+            {
+                IdentityResult result = await _repo.ChangePassword(changePasswordModel);
+
+                //Verificando se há algum erro
+                IHttpActionResult errorResult = GetErrorResult(result);
+                if (errorResult != null)
+                {
+                    return errorResult;
+                }                               
+            }
+            catch (ApplicationException ae)
+            {
+                return BadRequest(ae.Message);
+            }
+
+            return Ok();
+        }
+
+        //API para reset (simples) de senha de usuário
+        // POST api/Account/ResetPasswordSimple
+        [AllowAnonymous]
+        [Route("ResetPasswordSimple")]
+        public async Task<IHttpActionResult> ResetPasswordSimple(ResetPasswordSimpleModel resetPasswordModel)
+        {
+            //ModelState é um dicionário disponível na classe base do controlador que armazena as informações adicionais e de estado sobre o modelo
+            //O ModelState têm dois propósitos:
+            //1.Armazenar o valor submetido ao servidor
+            //2.Armazenar os erros de validação associados com esses valores
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            //Tentando alterar senha de usuário
+            try
+            {
+                IdentityResult result = await _repo.ResetPasswordSimple(resetPasswordModel);
+
+                //Verificando se há algum erro
+                IHttpActionResult errorResult = GetErrorResult(result);
+                if (errorResult != null)
+                {
+                    return errorResult;
+                }
+            }
+            catch (ApplicationException ae)
+            {
+                return BadRequest(ae.Message);
+            }
+
+            return Ok();
+        }
+
         /******************************************************************
                            IMPLEMENTAÇÃO LOGIN EXTERNO
          *****************************************************************/
