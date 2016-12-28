@@ -1,11 +1,11 @@
-namespace ClassLibrary1TemplateMultiTenant.Infra.Migrations
+namespace TemplateMultiTenant.Infra.Migrations
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ClassLibrary1TemplateMultiTenant.Infra.Context.TemplateMultiTenantContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<TemplateMultiTenant.Infra.Context.TemplateMultiTenantContext>
     {
         public Configuration()
         {
@@ -15,7 +15,7 @@ namespace ClassLibrary1TemplateMultiTenant.Infra.Migrations
             SetSqlGenerator("MySql.Data.MySqlClient", new MySql.Data.Entity.MySqlMigrationSqlGenerator());
         }
 
-        protected override void Seed(ClassLibrary1TemplateMultiTenant.Infra.Context.TemplateMultiTenantContext context)
+        protected override void Seed(TemplateMultiTenant.Infra.Context.TemplateMultiTenantContext context)
         {
             //  This method will be called after migrating to the latest version.
 

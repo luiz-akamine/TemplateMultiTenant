@@ -55,7 +55,7 @@ namespace TemplateMultiTenant.Auth.Repository
                 Active = true,
                 AllowedOrigin = "*",
                 Secret = Helper.GetHash(clientModel.Id),
-                RefreshTokenLifeTime = 28800,
+                RefreshTokenLifeTime = 86400, //1 dia -> alterar qd implementar RefreshToken
                 ConnectionString = _ctx.Database.Connection.ConnectionString.Replace(_ctx.Database.Connection.Database + ";", clientModel.Id + ";") + ";Password=amazon87!",
                 DtSubscriptionExpiration = GetDtSubscriptionExpiration(clientModel.SubscriptionType)
             };

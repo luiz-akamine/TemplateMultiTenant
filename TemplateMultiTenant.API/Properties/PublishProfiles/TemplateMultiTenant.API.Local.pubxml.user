@@ -10,19 +10,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="ApplicationInsights.config">
-      <publishTime>12/06/2016 20:51:21</publishTime>
+      <publishTime>06/12/2016 20:51:21</publishTime>
     </File>
     <File Include="bin/ApplicationInsights.config">
-      <publishTime>12/06/2016 20:51:21</publishTime>
+      <publishTime>06/12/2016 20:51:21</publishTime>
     </File>
-    <File Include="bin/ClassLibrary1TemplateMultiTenant.Infra.dll">
-      <publishTime>12/21/2016 21:58:15</publishTime>
+    <File Include="bin/TemplateMultiTenant.Infra.dll">
+      <publishTime>12/27/2016 21:55:08</publishTime>
+    </File>
+    <File Include="bin/CommonServiceLocator.SimpleInjectorAdapter.dll">
+      <publishTime>06/27/2015 11:01:10</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
-      <publishTime>03/02/2015 09:32:26</publishTime>
+      <publishTime>02/03/2015 09:32:26</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
-      <publishTime>12/07/2015 19:04:38</publishTime>
+      <publishTime>07/12/2015 19:04:38</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.DependencyCollector.dll">
       <publishTime>06/06/2016 15:40:16</publishTime>
@@ -49,7 +52,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/13/2015 13:16:32</publishTime>
     </File>
     <File Include="bin/Microsoft.Owin.dll">
-      <publishTime>02/13/2015 14:16:30</publishTime>
+      <publishTime>02/13/2015 13:16:30</publishTime>
     </File>
     <File Include="bin/Microsoft.Owin.Host.SystemWeb.dll">
       <publishTime>02/13/2015 13:16:34</publishTime>
@@ -59,6 +62,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="bin/Microsoft.Owin.Security.OAuth.dll">
       <publishTime>02/13/2015 13:16:40</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.ServiceLocation.dll">
+      <publishTime>05/05/2014 11:25:44</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>07/25/2012 11:48:56</publishTime>
     </File>
     <File Include="bin/MySql.Data.dll">
       <publishTime>06/17/2016 18:29:10</publishTime>
@@ -70,10 +79,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/17/2016 17:28:04</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
-      <publishTime>08/03/2014 20:33:56</publishTime>
+      <publishTime>03/08/2014 20:33:56</publishTime>
     </File>
     <File Include="bin/Owin.dll">
-      <publishTime>11/27/2012 14:00:52</publishTime>
+      <publishTime>11/13/2012 12:19:34</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>06/18/2015 20:19:46</publishTime>
@@ -111,8 +120,17 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/roslyn/VBCSCompiler.exe.config">
       <publishTime>06/18/2015 20:19:46</publishTime>
     </File>
+    <File Include="bin/SimpleInjector.dll">
+      <publishTime>12/02/2016 08:03:54</publishTime>
+    </File>
+    <File Include="bin/SimpleInjector.Extensions.ExecutionContextScoping.dll">
+      <publishTime>12/02/2016 08:03:56</publishTime>
+    </File>
+    <File Include="bin/SimpleInjector.Integration.WebApi.dll">
+      <publishTime>12/02/2016 08:03:56</publishTime>
+    </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
-      <publishTime>01/28/2015 05:02:42</publishTime>
+      <publishTime>01/28/2015 04:02:42</publishTime>
     </File>
     <File Include="bin/System.Web.Cors.dll">
       <publishTime>01/28/2015 04:01:46</publishTime>
@@ -121,28 +139,31 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/28/2015 04:03:04</publishTime>
     </File>
     <File Include="bin/System.Web.Http.dll">
-      <publishTime>01/28/2015 05:02:54</publishTime>
+      <publishTime>01/28/2015 04:02:54</publishTime>
     </File>
     <File Include="bin/System.Web.Http.Owin.dll">
       <publishTime>01/28/2015 04:03:16</publishTime>
     </File>
     <File Include="bin/System.Web.Http.WebHost.dll">
-      <publishTime>01/28/2015 05:03:46</publishTime>
+      <publishTime>01/28/2015 04:03:46</publishTime>
     </File>
     <File Include="bin/TemplateMultiTenant.API.dll">
-      <publishTime>12/21/2016 21:58:20</publishTime>
+      <publishTime>12/27/2016 21:55:14</publishTime>
     </File>
     <File Include="bin/TemplateMultiTenant.Domain.dll">
-      <publishTime>12/21/2016 21:58:15</publishTime>
+      <publishTime>12/27/2016 21:54:06</publishTime>
+    </File>
+    <File Include="bin/WebActivator.dll">
+      <publishTime>12/20/2012 12:14:24</publishTime>
     </File>
     <File Include="Global.asax">
       <publishTime>12/21/2016 21:43:24</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>12/12/2016 20:47:36</publishTime>
+      <publishTime>12/24/2016 16:18:20</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/21/2016 21:58:20</publishTime>
+      <publishTime>12/24/2016 19:47:12</publishTime>
     </File>
   </ItemGroup>
 </Project>

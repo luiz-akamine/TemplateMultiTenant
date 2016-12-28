@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1TemplateMultiTenant.Infra.Mappings
+namespace TemplateMultiTenant.Infra.Mappings
 {
     class ProductMap : EntityTypeConfiguration<Product>
     {

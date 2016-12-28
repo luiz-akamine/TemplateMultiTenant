@@ -4,9 +4,9 @@ using System.Configuration;
 
 namespace TemplateMultiTenant.Domain.Models
 {
-    public class Product
+    public class Product : EntityBase    
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
 
         //[Column(TypeName = "char(10)")]
         [Required]
@@ -17,5 +17,9 @@ namespace TemplateMultiTenant.Domain.Models
         public string Name { get; set; }
 
         public double Price { get; set; }
+
+        public int ProductType { get; set; }
+
+        public int test { get; set; }
     }
 }

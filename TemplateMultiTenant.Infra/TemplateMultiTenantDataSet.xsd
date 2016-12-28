@@ -4,7 +4,7 @@
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
-          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="TemplateMultiTenantConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="TemplateMultiTenantConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.ClassLibrary1TemplateMultiTenant.Infra.Properties.Settings.GlobalReference.Default.TemplateMultiTenantConnectionString" Provider="MySql.Data.MySqlClient" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="TemplateMultiTenantConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="TemplateMultiTenantConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.TemplateMultiTenant.Infra.Properties.Settings.GlobalReference.Default.TemplateMultiTenantConnectionString" Provider="MySql.Data.MySqlClient" />
         </Connections>
         <Tables />
         <Sources />
