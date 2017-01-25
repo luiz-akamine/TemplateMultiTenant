@@ -8,5 +8,7 @@ namespace TemplateMultiTenant.Domain.Interfaces.Services
         TEntity GetById(int id);
         void Post(TEntity obj);
         void Update(TEntity obj);
+        void Delete(TEntity obj);
+        void Delete(int id);
     }
 }

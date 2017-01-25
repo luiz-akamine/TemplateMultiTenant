@@ -15,7 +15,7 @@ namespace TemplateMultiTenant.Infra.IoC
         public static void Start(Container container)
         {
             //Infra
-            container.Register<IRepositoryManager, RepositoryManager>();
+            //merda alterando container.Register<IRepositoryManager, RepositoryManager>();
             container.Register<IUnityOfWork, UnitOfWork>(Lifestyle.Scoped);
             container.Register(typeof(IBaseRepository<>), typeof(BaseRepository<>), Lifestyle.Scoped);
             container.Register(typeof(IProductRepository), typeof(ProductRepository), Lifestyle.Scoped);

@@ -1,17 +1,14 @@
-﻿using TemplateMultiTenant.Infra.Context;
-using TemplateMultiTenant.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using TemplateMultiTenant.Domain.Models;
 using System.Net;
 using System.Net.Http;
-using System.Security.Claims;
 using System.Web.Http;
 using TemplateMultiTenant.Domain.Services;
 using TemplateMultiTenant.Domain.Interfaces.Services;
+using System;
 
 namespace TemplateMultiTenant.API.Controllers
 {
+    [Authorize]
     [RoutePrefix("api/Product")]
     public class ProductController : BaseController<Product>    
     {        
@@ -21,52 +18,48 @@ namespace TemplateMultiTenant.API.Controllers
         public ProductController(IBaseService<Product> baseService, IProductService productService) : base(baseService)        
         {
             _productService = productService as ProductService;
-        }            
+        }
 
-        //Rotina custom teste
-        [Route("GetByType")]
-        public HttpResponseMessage GetByType(int productType)
+        // API Principal, na qual redireciona para as "APIs" requisitadas
+        [AcceptVerbs("POST")]
+        [Route("ExecMethod")]
+        public HttpResponseMessage ExecMethod(RequestBase request)
+        {
+            try
+            {
+                //Definindo conexão do banco de dados de acordo com o usuário logado
+                ControllerHelper.SetUserDBConnection(User);
+
+                //Redirecionando paras as "APIs" requisitadas
+                switch (request.MethodName.ToUpper())
+                {
+                    case "GETBYTYPE":
+                        return GetByType(ControllerHelper.ConvertRequestObject<Int32>(request));                    
+                    default:
+                        return base.ExecBaseMethod(request);
+                }
+            }
+            catch (ArgumentNullException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
+            catch (ArgumentException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+
+        // "APIs" específicas do Produto
+
+        //Rotina custom teste        
+        private HttpResponseMessage GetByType(int productType)
         {
             return Request.CreateResponse(HttpStatusCode.OK, _productService.GetByType(productType));
-        }
-
-        [AcceptVerbs("GET")]
-        [Route("APITest")]
-        [Authorize]
-        public HttpResponseMessage APITest()
-        {
-            
-            var identity = User.Identity as ClaimsIdentity;
-
-            var claims = identity.Claims.Select(c => new
-            {
-                Type = c.Type,
-                Value = c.Value
-            }).Where(_ => _.Type == "connectionstring").ToList();
-            var connectionString = claims.Select(_ => _.Value).FirstOrDefault();
-
-
-            TemplateMultiTenantContext context = new TemplateMultiTenantContext(connectionString);
-            //TemplateMultiTenantContext context = new TemplateMultiTenantContext();
-            /*
-            var prodNew = new Product()
-            {                
-                Code = "P02",
-                Name = "Produto 02",
-                Price = 200
-            };
-
-            context.Products.Add(prodNew);
-
-            context.SaveChanges();
-            */
-
-            
-            var products = from p in context.Products
-                           select p;
-            
-
-            return Request.CreateResponse(HttpStatusCode.OK, products.ToList());                        
-        }
+        }        
     }
 }

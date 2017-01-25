@@ -55,11 +55,25 @@ namespace TemplateMultiTenant.Domain.Services
             //Verificando se existe
             if (GetById(obj.Id) == null)
             {
-                throw new ArgumentException("object not exists");
+                throw new Exception("object not exists");
             }
                         
             _unitOfWork.BeginTrans();
             _entityRepository.Update(obj);
+            _unitOfWork.Commit();
+        }
+
+        public void Delete(int id)
+        {
+            _unitOfWork.BeginTrans();
+            _entityRepository.Delete(id);
+            _unitOfWork.Commit();
+        }
+
+        public void Delete(TEntity obj)
+        {
+            _unitOfWork.BeginTrans();
+            _entityRepository.Delete(obj.Id);
             _unitOfWork.Commit();
         }
     }

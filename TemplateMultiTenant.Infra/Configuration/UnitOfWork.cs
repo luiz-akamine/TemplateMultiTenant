@@ -15,8 +15,8 @@ namespace TemplateMultiTenant.Infra.Configuration
 
         public void BeginTrans()
         {
-            var repositoryManager = ServiceLocator.Current.GetInstance<IRepositoryManager>() as RepositoryManager;
-            _context = repositoryManager.Context;
+            //merda alterando var repositoryManager = ServiceLocator.Current.GetInstance<IRepositoryManager>() as RepositoryManager;            
+            _context = RepositoryManager.Context;
         }        
     }
 }

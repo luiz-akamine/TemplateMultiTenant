@@ -1,36 +1,33 @@
-﻿using TemplateMultiTenant.Domain.Interfaces.Infra;
+﻿using System.Web;
 using TemplateMultiTenant.Infra.Context;
-using System.Web;
 
 namespace TemplateMultiTenant.Infra.Configuration
 {
     //Classe para adquirir contexto de forma singleton
-    public class RepositoryManager : IRepositoryManager
+    public static class RepositoryManager
     {
         public const string HttpCtxt = "HttpContext";
-        private string connectionString = "server=localhost;user id=root;password=mysql87!;persistsecurityinfo=True;database=templatemultitenant";
+        private static string _connectionString;
+    
+        public static void SetUserDBConnection(string connectionString)
+        {
+            HttpContext.Current.Items[HttpCtxt] = null;
+            _connectionString = connectionString;
+        }
 
-        public RepositoryManager() { }
-
-        //merda public RepositoryManager(string connectionString)
-        //{
-        //    this.connectionString = connectionString;
-        //}
-
-        public TemplateMultiTenantContext Context
+        public static TemplateMultiTenantContext Context
         {
             get
             {
-                
                 if (HttpContext.Current.Items[HttpCtxt] == null)
-                {
-                    HttpContext.Current.Items[HttpCtxt] = new TemplateMultiTenantContext(connectionString);
+                {                    
+                    HttpContext.Current.Items[HttpCtxt] = new TemplateMultiTenantContext(_connectionString);
                 }
                 return (HttpContext.Current.Items[HttpCtxt] as TemplateMultiTenantContext);                
             }
         }
 
-        public void Dispose()
+        public static void Dispose()
         {
             if (HttpContext.Current.Items[HttpCtxt] != null)
             {

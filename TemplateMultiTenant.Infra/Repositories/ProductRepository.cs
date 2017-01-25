@@ -1,17 +1,15 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using TemplateMultiTenant.Domain.Interfaces.Repositories;
 using TemplateMultiTenant.Domain.Models;
-using TemplateMultiTenant.Infra.Repositories;
+using TemplateMultiTenant.Infra.Configuration;
 
 namespace TemplateMultiTenant.Infra.Repositories
 {
-    public class ProductRepository : BaseRepository<Product>, IProductRepository
-    //public class ProductRepository : BaseRepository<EntityBase>, IProductRepository
+    public class ProductRepository : BaseRepository<Product>, IProductRepository    
     {
         public IQueryable<Product> GetByType(int productType)
         {
-            var products = _context.Products
+            var products = RepositoryManager.Context.Products
                 .Where(p => p.ProductType == productType);                
 
             return products;

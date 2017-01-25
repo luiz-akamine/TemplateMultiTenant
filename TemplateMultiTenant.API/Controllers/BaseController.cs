@@ -5,25 +5,56 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Data.Entity.Validation;
 
 namespace TemplateMultiTenant.API.Controllers
 {
+    [Authorize]
     public class BaseController<TEntity>: ApiController where TEntity : EntityBase
     {
-        private readonly IBaseService<TEntity> _baseService;
+        private readonly IBaseService<TEntity> _baseService;        
 
         public BaseController(IBaseService<TEntity> baseService)
         {
             _baseService = baseService;            
-        }        
+        }
 
-        // APIs
-
-        public HttpResponseMessage Get()
+        // API Principal, na qual redireciona para as "APIs" requisitadas
+        [AcceptVerbs("POST")]
+        [Route("ExecMethod")]
+        public HttpResponseMessage ExecBaseMethod(RequestBase request)
         {
             try
             {
-                return Request.CreateResponse(HttpStatusCode.OK, _baseService.GetAll().ToList());
+                //Definindo conexão do banco de dados de acordo com o usuário logado
+                ControllerHelper.SetUserDBConnection(User);            
+
+                //Redirecionando paras as "APIs" requisitadas
+                switch (request.MethodName.ToUpper())
+                {
+                    case "GET":
+                        return Get();                    
+                    case "GETBYID":
+                        return Get(ControllerHelper.ConvertRequestObject<Int32>(request));
+                    case "POST":                    
+                        return Post(ControllerHelper.ConvertRequestObject<TEntity>(request));
+                    case "PUT":
+                        return Put(ControllerHelper.ConvertRequestObject<TEntity>(request));
+                    case "DELETE":
+                        return Delete(ControllerHelper.ConvertRequestObject<TEntity>(request));
+                    case "DELETEBYID":
+                        return Delete(ControllerHelper.ConvertRequestObject<Int32>(request));
+                    default:
+                        return Request.CreateResponse(HttpStatusCode.BadRequest, "Method not found");
+                }
+            }            
+            catch (ArgumentNullException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
+            catch (ArgumentException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
             }
             catch (Exception e)
             {
@@ -31,7 +62,26 @@ namespace TemplateMultiTenant.API.Controllers
             }
         }
 
-        public HttpResponseMessage Get(int id)
+
+        // "APIs" (chamadas quando requisitadas na API "ExecBaseMethod" no campo "MethodName"
+
+        private HttpResponseMessage Get()
+        {
+            try
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, _baseService.GetAll().ToList());
+            }
+            catch (DbEntityValidationException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, e.EntityValidationErrors.ToList());
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        private HttpResponseMessage Get(int id)
         {
             try
             {
@@ -39,12 +89,16 @@ namespace TemplateMultiTenant.API.Controllers
 
                 if (obj == null)
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError, "object not found");
                 }
                 else
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
                 }
+            }
+            catch (DbEntityValidationException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, e.EntityValidationErrors.ToList());
             }
             catch (Exception e)
             {
@@ -52,7 +106,7 @@ namespace TemplateMultiTenant.API.Controllers
             }
         }
 
-        public HttpResponseMessage Post(TEntity obj)
+        private HttpResponseMessage Post(TEntity obj)
         {
             try
             {
@@ -63,13 +117,17 @@ namespace TemplateMultiTenant.API.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
             }
+            catch (DbEntityValidationException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, e.EntityValidationErrors.ToList());
+            }
             catch (Exception e)
             {
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
-        public HttpResponseMessage Put(TEntity obj)
+        private HttpResponseMessage Put(TEntity obj)
         {
             try
             {
@@ -80,9 +138,51 @@ namespace TemplateMultiTenant.API.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
             }
-            catch (ArgumentException e)
+            catch (DbEntityValidationException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.EntityValidationErrors.ToList());
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        private HttpResponseMessage Delete(TEntity obj)
+        {
+            try
+            {
+                _baseService.Delete(obj);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (ArgumentNullException e)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
+            catch (DbEntityValidationException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, e.EntityValidationErrors.ToList());
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        private HttpResponseMessage Delete(int id)
+        {
+            try
+            {
+                _baseService.Delete(id);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (ArgumentNullException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
+            catch (DbEntityValidationException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, e.EntityValidationErrors.ToList());
             }
             catch (Exception e)
             {

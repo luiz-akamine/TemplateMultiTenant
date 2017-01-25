@@ -119,6 +119,7 @@
     <Compile Include="Interfaces\Services\IProductService.cs" />
     <Compile Include="Models\EntityBase.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\RequestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DBTransactionService.cs" />
     <Compile Include="Services\BaseService.cs" />
