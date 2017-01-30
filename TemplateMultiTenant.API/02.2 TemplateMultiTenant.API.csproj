@@ -183,6 +183,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ControllerHelper.cs" />
+    <Compile Include="Controllers\DBController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -201,9 +202,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\TemplateMultiTenant.Infra\03 TemplateMultiTenant.Infra.csproj">
       <Project>{e8354912-164c-4c0f-bfa3-910b5a7380c9}</Project>

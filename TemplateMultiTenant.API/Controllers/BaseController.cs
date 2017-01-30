@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Data.Entity.Validation;
+using TemplateMultiTenant.Infra;
 
 namespace TemplateMultiTenant.API.Controllers
 {
@@ -27,7 +28,7 @@ namespace TemplateMultiTenant.API.Controllers
             try
             {
                 //Definindo conexão do banco de dados de acordo com o usuário logado
-                ControllerHelper.SetUserDBConnection(User);            
+                DBHelper.SetUserDBConnection(User, false);            
 
                 //Redirecionando paras as "APIs" requisitadas
                 switch (request.MethodName.ToUpper())
@@ -43,7 +44,7 @@ namespace TemplateMultiTenant.API.Controllers
                     case "DELETE":
                         return Delete(ControllerHelper.ConvertRequestObject<TEntity>(request));
                     case "DELETEBYID":
-                        return Delete(ControllerHelper.ConvertRequestObject<Int32>(request));
+                        return Delete(ControllerHelper.ConvertRequestObject<Int32>(request));                    
                     default:
                         return Request.CreateResponse(HttpStatusCode.BadRequest, "Method not found");
                 }
@@ -188,6 +189,6 @@ namespace TemplateMultiTenant.API.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, e.Message);
             }
-        }
+        }        
     }
 }

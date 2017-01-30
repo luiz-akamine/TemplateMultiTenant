@@ -1,9 +1,5 @@
 ﻿//Modelo para registro de usuários externos
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace TemplateMultiTenant.Auth.ViewModel
 {

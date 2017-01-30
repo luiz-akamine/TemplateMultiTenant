@@ -1,15 +1,14 @@
-﻿using TemplateMultiTenant.Auth.Context;
-using TemplateMultiTenant.Auth.Models;
-using TemplateMultiTenant.Auth.ViewModel;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security.DataProtection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.Owin.Security.DataProtection;
-using Microsoft.AspNet.Identity.Owin;
+using TemplateMultiTenant.Auth.Context;
+using TemplateMultiTenant.Auth.Models;
+using TemplateMultiTenant.Auth.ViewModel;
 
 namespace TemplateMultiTenant.Auth.Repository
 {

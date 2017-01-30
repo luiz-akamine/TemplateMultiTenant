@@ -1,9 +1,7 @@
-﻿using TemplateMultiTenant.API.App_Start;
-using TemplateMultiTenant.Infra.IoC;
-using SimpleInjector;
+﻿using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
 using System.Web.Http;
-using WebActivator;
+using TemplateMultiTenant.Infra.IoC;
 
 //[assembly: PostApplicationStartMethod(typeof(SimpleInjectorInitializer), "Initialize")]
 namespace TemplateMultiTenant.API.App_Start

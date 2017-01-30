@@ -1,10 +1,10 @@
 ﻿//Classe responsável por gerenciar a persistência dos RefreshTokens na base de dados do sistema
-using TemplateMultiTenant.Auth;
-using TemplateMultiTenant.Auth.Models;
-using TemplateMultiTenant.Auth.Repository;
 using Microsoft.Owin.Security.Infrastructure;
 using System;
 using System.Threading.Tasks;
+using TemplateMultiTenant.Auth;
+using TemplateMultiTenant.Auth.Models;
+using TemplateMultiTenant.Auth.Repository;
 
 public class SimpleRefreshTokenProvider : IAuthenticationTokenProvider
 {

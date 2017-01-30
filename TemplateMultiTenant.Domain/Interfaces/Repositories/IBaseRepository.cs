@@ -1,5 +1,5 @@
-﻿using TemplateMultiTenant.Domain.Models;
-using System.Linq;
+﻿using System.Linq;
+using TemplateMultiTenant.Domain.Models;
 
 namespace TemplateMultiTenant.Domain.Interfaces.Repositories
 {

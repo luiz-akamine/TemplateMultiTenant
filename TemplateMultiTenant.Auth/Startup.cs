@@ -1,10 +1,10 @@
-﻿using TemplateMultiTenant.Auth.Providers;
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
 using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using System;
 using System.Web.Http;
+using TemplateMultiTenant.Auth.Providers;
 
 [assembly: OwinStartup(typeof(TemplateMultiTenant.Auth.Startup))]
 
@@ -46,16 +46,16 @@ namespace TemplateMultiTenant.Auth
                 //A geração do token será o local de nossa API + "/token". Ex: "http://localhost:port/token"
                 TokenEndpointPath = new PathString("/token"),
                 //Tempo de validade do token para acessarmos as APIs que necessitam autenticação
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),                
                 //Classe que implementa "OAuthAuthorizationServerProvider", responsável por validar as credenciais de usuários que solicitam o token
                 Provider = new SimpleAuthorizationServerProvider(),
                 //Classe que implementa "IAuthenticationTokenProvider", responsável por gerenciar os RefreshTokens
-                RefreshTokenProvider = new SimpleRefreshTokenProvider()
+                RefreshTokenProvider = new SimpleRefreshTokenProvider()                
             };
 
             // Token Generation
             app.UseOAuthAuthorizationServer(OAuthServerOptions);
-            app.UseOAuthBearerAuthentication(OAuthBearerOptions);
+            app.UseOAuthBearerAuthentication(OAuthBearerOptions);            
 
             //Configuração Facebook External Login
             facebookAuthOptions = new FacebookAuthenticationOptions()

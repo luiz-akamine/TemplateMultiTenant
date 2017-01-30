@@ -1,6 +1,6 @@
-﻿using TemplateMultiTenant.Infra.Mappings;
+﻿using System.Data.Entity;
 using TemplateMultiTenant.Domain.Models;
-using System.Data.Entity;
+using TemplateMultiTenant.Infra.Mappings;
 
 namespace TemplateMultiTenant.Infra.Context
 {

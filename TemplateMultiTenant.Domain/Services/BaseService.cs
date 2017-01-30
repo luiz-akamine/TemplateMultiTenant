@@ -1,9 +1,9 @@
-﻿using TemplateMultiTenant.Domain.Interfaces.Infra;
+﻿using System;
+using System.Linq;
+using TemplateMultiTenant.Domain.Interfaces.Infra;
 using TemplateMultiTenant.Domain.Interfaces.Repositories;
 using TemplateMultiTenant.Domain.Interfaces.Services;
 using TemplateMultiTenant.Domain.Models;
-using System;
-using System.Linq;
 
 namespace TemplateMultiTenant.Domain.Services
 {
@@ -65,6 +65,12 @@ namespace TemplateMultiTenant.Domain.Services
 
         public void Delete(int id)
         {
+            //Verificando se existe
+            if (GetById(id) == null)
+            {
+                throw new Exception("object not exists");
+            }
+
             _unitOfWork.BeginTrans();
             _entityRepository.Delete(id);
             _unitOfWork.Commit();
@@ -72,6 +78,12 @@ namespace TemplateMultiTenant.Domain.Services
 
         public void Delete(TEntity obj)
         {
+            //Verificando se existe
+            if (GetById(obj.Id) == null)
+            {
+                throw new Exception("object not exists");
+            }
+
             _unitOfWork.BeginTrans();
             _entityRepository.Delete(obj.Id);
             _unitOfWork.Commit();

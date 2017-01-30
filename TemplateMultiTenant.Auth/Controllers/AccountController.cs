@@ -1,7 +1,4 @@
-﻿using TemplateMultiTenant.Auth.Repository;
-using TemplateMultiTenant.Auth.Results;
-using TemplateMultiTenant.Auth.ViewModel;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -13,6 +10,9 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
+using TemplateMultiTenant.Auth.Repository;
+using TemplateMultiTenant.Auth.Results;
+using TemplateMultiTenant.Auth.ViewModel;
 
 namespace TemplateMultiTenant.Auth.Controllers
 {

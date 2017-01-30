@@ -1,6 +1,5 @@
 ﻿using TemplateMultiTenant.Domain.Interfaces.Infra;
 using TemplateMultiTenant.Infra.Context;
-using Microsoft.Practices.ServiceLocation;
 
 namespace TemplateMultiTenant.Infra.Configuration
 {

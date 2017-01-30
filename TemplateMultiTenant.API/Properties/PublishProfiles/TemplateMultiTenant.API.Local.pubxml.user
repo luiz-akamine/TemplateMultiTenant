@@ -16,7 +16,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/12/2016 20:51:21</publishTime>
     </File>
     <File Include="bin/TemplateMultiTenant.Infra.dll">
-      <publishTime>12/27/2016 21:55:08</publishTime>
+      <publishTime>01/30/2017 21:01:48</publishTime>
     </File>
     <File Include="bin/CommonServiceLocator.SimpleInjectorAdapter.dll">
       <publishTime>06/27/2015 11:01:10</publishTime>
@@ -148,10 +148,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/28/2015 04:03:46</publishTime>
     </File>
     <File Include="bin/TemplateMultiTenant.API.dll">
-      <publishTime>12/27/2016 21:55:14</publishTime>
+      <publishTime>01/30/2017 21:03:53</publishTime>
     </File>
     <File Include="bin/TemplateMultiTenant.Domain.dll">
-      <publishTime>12/27/2016 21:54:06</publishTime>
+      <publishTime>01/30/2017 21:01:26</publishTime>
     </File>
     <File Include="bin/WebActivator.dll">
       <publishTime>12/20/2012 12:14:24</publishTime>
@@ -163,7 +163,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/24/2016 16:18:20</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/24/2016 19:47:12</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
   </ItemGroup>
 </Project>

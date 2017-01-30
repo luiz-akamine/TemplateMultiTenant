@@ -190,7 +190,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Context\AuthContext.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\RefreshTokensController.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Migrations\201612200149077_Auth.cs" />
@@ -227,9 +226,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
@@ -237,9 +234,6 @@
     <EmbeddedResource Include="Migrations\201612200149077_Auth.resx">
       <DependentUpon>201612200149077_Auth.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

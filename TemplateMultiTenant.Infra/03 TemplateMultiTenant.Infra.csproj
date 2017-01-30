@@ -76,6 +76,7 @@
     <Compile Include="Configuration\RepositoryManager.cs" />
     <Compile Include="Configuration\UnitOfWork.cs" />
     <Compile Include="Context\TemplateMultiTenantContext.cs" />
+    <Compile Include="DBHelper.cs" />
     <Compile Include="IoC\Bindings.cs" />
     <Compile Include="Migrations\201612242140026_test.cs" />
     <Compile Include="Migrations\201612242140026_test.Designer.cs">

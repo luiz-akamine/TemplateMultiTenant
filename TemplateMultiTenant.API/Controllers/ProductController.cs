@@ -5,6 +5,7 @@ using System.Web.Http;
 using TemplateMultiTenant.Domain.Services;
 using TemplateMultiTenant.Domain.Interfaces.Services;
 using System;
+using TemplateMultiTenant.Infra;
 
 namespace TemplateMultiTenant.API.Controllers
 {
@@ -28,7 +29,7 @@ namespace TemplateMultiTenant.API.Controllers
             try
             {
                 //Definindo conexão do banco de dados de acordo com o usuário logado
-                ControllerHelper.SetUserDBConnection(User);
+                DBHelper.SetUserDBConnection(User, false);
 
                 //Redirecionando paras as "APIs" requisitadas
                 switch (request.MethodName.ToUpper())

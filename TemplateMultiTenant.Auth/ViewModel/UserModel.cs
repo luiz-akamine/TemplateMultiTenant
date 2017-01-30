@@ -1,10 +1,5 @@
 ﻿//Classe POCO contendo propriedades necessárias para autenticação do usuário
-using TemplateMultiTenant.Auth.Models;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace TemplateMultiTenant.Auth.ViewModel
 {

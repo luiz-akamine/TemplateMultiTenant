@@ -142,13 +142,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/28/2015 04:03:46</publishTime>
     </File>
     <File Include="bin/TemplateMultiTenant.Auth.dll">
-      <publishTime>12/24/2016 19:46:42</publishTime>
+      <publishTime>01/24/2017 23:29:30</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>12/23/2016 22:59:15</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/24/2016 19:46:43</publishTime>
+      <publishTime>01/24/2017 23:21:58</publishTime>
     </File>
   </ItemGroup>
 </Project>

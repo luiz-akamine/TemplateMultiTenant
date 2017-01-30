@@ -1,7 +1,4 @@
-﻿using TemplateMultiTenant.Auth.Context;
-using TemplateMultiTenant.Auth.Models;
-using TemplateMultiTenant.Auth.Repository;
-//Classe responsável por prover geração do token
+﻿//Classe responsável por prover geração do token
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
@@ -9,98 +6,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
+using TemplateMultiTenant.Auth.Context;
+using TemplateMultiTenant.Auth.Models;
+using TemplateMultiTenant.Auth.Repository;
 
 namespace TemplateMultiTenant.Auth.Providers
 {
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
-        //Reescrevendo método que valida usuário e senha gerando o Token para o usuário acessar as APIs protegidas
-        public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
-        {
-            //adquirindo "access control allowed origin" para configurar CORs no Owin
-            var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin");
-            if (allowedOrigin == null) allowedOrigin = "*";
-
-            //Tratamento para CORS -> Habilitando acesso de vários domínios
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });            
-
-            //Criando repository para acessar usuário
-            using (AuthRepository _repo = new AuthRepository())
-            {
-                //Tentando buscar usuário
-                IdentityUser user = await _repo.FindUser(context.UserName, context.Password);
-
-                if (user == null)
-                {
-                    //Não encontrou, erro:
-                    context.SetError("invalid_grant", "Usuário e senha inválidos");
-                    return;
-                }
-
-                //Verificando se usuario faz parte do client
-                if (!UserInClient(context.UserName, context.ClientId))
-                {
-                    //Não encontrou, erro:
-                    context.SetError("invalid_client", "Usuário não faz parte do Client informado");
-                    return;
-                }
-            }
-
-            //buscando string de conexao
-            string connectionString = "";
-            using (AuthRepository _repo = new AuthRepository())
-            {
-                connectionString = _repo.FindClient(context.ClientId).ConnectionString;
-            }
-
-            //Caso credenciais sejam válidas, criar ClaimsIdendity, que terá as Claims do usuário
-            var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-            //Cada Claim é como se fosse uma característica da identidade do usuário
-            //Estas Claims irão criptografadas no hearder de cada requisição para as APIs que necessitam autenticação
-            //Quanto mais Claims, maior o tamanho do token gerado
-            identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
-            identity.AddClaim(new Claim("sub", context.UserName)); //"sub" de "subject" -> usuário
-            identity.AddClaim(new Claim("role", "user"));
-            identity.AddClaim(new Claim("connectionstring", connectionString));
-
-            //Formatando propriedades client_id e username a serem passados como parâmetro para geração do ticket
-            var props = new AuthenticationProperties(new Dictionary<string, string>
-                {
-                    { 
-                        "as:client_id", (context.ClientId == null) ? string.Empty : context.ClientId
-                    },
-                    { 
-                        "userName", context.UserName
-                    }
-                });
-            
-            var ticket = new AuthenticationTicket(identity, props);
-            //GERAÇÃO DO TOKEN!!!
-            context.Validated(ticket);
-        }
-
-        //Verifica se usuario faz parte do client
-        private bool UserInClient(string userName, string clientId)
-        {
-            using (AuthContext ctx = new AuthContext())
-            {
-                var userClients = (from uc in ctx.UserClients
-                                   where uc.UserName == userName && uc.Client.Id == clientId
-                                   select uc).ToList();                                  
-                if (userClients != null)
-                {
-                    return (userClients.Count > 0);
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-
-        //Método de validação de autenticação com base nas tabelas de controle criada para gerenciar os Clients
+        //Método executado quando solicitado um novo Token
+        //Valida autenticação com base nas tabelas de controle criada para gerenciar os Clients
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             //variáveis para acesso ao "Client"
@@ -174,7 +90,94 @@ namespace TemplateMultiTenant.Auth.Providers
             return Task.FromResult<object>(null);
         }
 
+        //Reescrevendo método que valida usuário e senha gerando o Token para o usuário acessar as APIs protegidas
+        public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
+        {
+            //adquirindo "access control allowed origin" para configurar CORs no Owin
+            var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin");
+            if (allowedOrigin == null) allowedOrigin = "*";
 
+            //Tratamento para CORS -> Habilitando acesso de vários domínios
+            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });            
+
+            //Criando repository para acessar usuário
+            using (AuthRepository _repo = new AuthRepository())
+            {
+                //Tentando buscar usuário
+                IdentityUser user = await _repo.FindUser(context.UserName, context.Password);
+
+                if (user == null)
+                {
+                    //Não encontrou, erro:
+                    context.SetError("invalid_grant", "Usuário e senha inválidos");
+                    return;
+                }
+
+                //Verificando se usuario faz parte do client
+                if (!UserInClient(context.UserName, context.ClientId))
+                {
+                    //Não encontrou, erro:
+                    context.SetError("invalid_client", "Usuário não faz parte do Client informado");
+                    return;
+                }
+            }
+
+            //buscando string de conexao
+            string connectionString = "";
+            using (AuthRepository _repo = new AuthRepository())
+            {
+                connectionString = _repo.FindClient(context.ClientId).ConnectionString;
+            }
+
+            //Caso credenciais sejam válidas, criar ClaimsIdendity, que terá as Claims do usuário
+            var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+            //Cada Claim é como se fosse uma característica da identidade do usuário
+            //Estas Claims irão criptografadas no hearder de cada requisição para as APIs que necessitam autenticação
+            //Quanto mais Claims, maior o tamanho do token gerado
+            identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
+            identity.AddClaim(new Claim("sub", context.UserName)); //"sub" de "subject" -> usuário
+            identity.AddClaim(new Claim("role", "user"));
+            identity.AddClaim(new Claim("connectionstring", connectionString));
+
+
+            var tokenExpiration = TimeSpan.FromMinutes(30);
+
+            //Formatando propriedades client_id e username a serem passados como parâmetro para geração do ticket
+            var props = new AuthenticationProperties(new Dictionary<string, string>
+                {
+                    {
+                        "as:client_id", (context.ClientId == null) ? string.Empty : context.ClientId
+                    },
+                    {
+                        "userName", context.UserName
+                    }
+                });
+
+            var ticket = new AuthenticationTicket(identity, props);          
+            //GERAÇÃO DO TOKEN!!!
+            context.Validated(ticket);
+        }
+
+        //Verifica se usuario faz parte do client
+        private bool UserInClient(string userName, string clientId)
+        {
+            using (AuthContext ctx = new AuthContext())
+            {
+                var userClients = (from uc in ctx.UserClients
+                                   where uc.UserName == userName && uc.Client.Id == clientId
+                                   select uc).ToList();                                  
+                if (userClients != null)
+                {
+                    return (userClients.Count > 0);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        
         /*********************************************************
                      IMPLEMENTAÇÃO DO REFRESH TOKEN 
         *********************************************************/
