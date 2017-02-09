@@ -6,23 +6,23 @@ namespace TemplateMultiTenant.Auth.ViewModel
     public class UserModel
     {
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = "Usuário")]
         public string UserName { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "O {0} deve conter {2} caracteres no mínimo.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Senha")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "Senha de Confirmação")]
         [Compare("Password", ErrorMessage = "O password e confirmação do password não estão iguais")]
         public string ConfirmPassword { get; set; }
 
         [Required]
         [DataType(DataType.EmailAddress)]
-        [Display(Name = "e-mail")]       
+        [Display(Name = "email")]       
         [EmailAddress] 
         public string Email { get; set; }
 

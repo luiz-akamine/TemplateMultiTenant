@@ -24,6 +24,9 @@ namespace TemplateMultiTenant.Auth.Providers
             string clientSecret = string.Empty;
             Client client = null;
 
+            //setando no Owin a configuração CORs
+            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+
             //Tentando adquirir client_id/client_secret usando autenticação básica: base64 encode the (client_id:client_secret) 
             if (!context.TryGetBasicCredentials(out clientId, out clientSecret))
             {
@@ -94,11 +97,11 @@ namespace TemplateMultiTenant.Auth.Providers
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
             //adquirindo "access control allowed origin" para configurar CORs no Owin
-            var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin");
-            if (allowedOrigin == null) allowedOrigin = "*";
+            //var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin");
+            //if (allowedOrigin == null) allowedOrigin = "*";
 
             //Tratamento para CORS -> Habilitando acesso de vários domínios
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });            
+            //context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });            
 
             //Criando repository para acessar usuário
             using (AuthRepository _repo = new AuthRepository())

@@ -1,0 +1,90 @@
+﻿<form role="form" name="formSignUp">    
+    <div class="row">        
+        <div class="col-md-2">
+            &nbsp;
+        </div>
+        <div class="col-md-4">
+            <h2 class="form-login-heading">Registre-se</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2" style="height: 0">
+            &nbsp;
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" placeholder="Cód. Empresa" data-ng-model="registration.client_id" required autofocus>
+        </div>
+        <div class="col-md-4">
+            <input type="text" name="cnpj" class="form-control" data-ng-model="registration.cnpj" required autofocus ng-cnpj ui-mask="99.999.999/9999-99" placeholder="CNPJ" ui-mask-placeholder="__.___.___/____-__">            
+        </div>
+        <div class="col-md-2"  style="height: 0">
+            &nbsp;
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-md-2" style="height: 0">
+            &nbsp;
+        </div>
+        <div class="col-md-8">
+            <input type="text" class="form-control" placeholder="Nome da Empresa" data-ng-model="registration.companyName" required autofocus>
+        </div>        
+        <div class="col-md-2">
+            &nbsp;
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-md-2">
+            &nbsp;
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" placeholder="Nome de usuário" data-ng-model="registration.userName" required autofocus>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" placeholder="Email" data-ng-model="registration.email" required autofocus>
+        </div>
+        <div class="col-md-2">
+            &nbsp;
+        </div>
+    </div>    
+    <div class="row" >
+        <div class="col-md-2">
+            &nbsp;
+        </div>
+        <div class="col-md-4">
+            <input type="password" class="form-control" placeholder="Senha" data-ng-model="registration.password" required>
+        </div>
+        <div class="col-md-4">
+            <input type="password" class="form-control" placeholder="Confirme a senha" data-ng-model="registration.confirmPassword" required>
+        </div>
+        <div class="col-md-2">
+            &nbsp;
+        </div>
+    </div>    
+    <div class="row" style="margin-top: 1rem">
+        <div class="col-md-4">
+            &nbsp;
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-md btn-info btn-block" type="submit" data-ng-click="signUp(formSignUp)">Cadastrar!</button>
+        </div>
+        <div class="col-md-4">
+            &nbsp;
+        </div>
+    </div>    
+    <div class="row" >
+        <div class="col-md-4">
+            &nbsp;
+        </div>
+        <div class="col-md-4">
+            <div data-ng-hide="message == ''" data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'" style="margin-top: 5px">
+                {{message}}
+                <div ng-repeat="error in errors">
+                    {{error}}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            &nbsp;
+        </div>
+    </div>
+</form>

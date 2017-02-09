@@ -22,7 +22,7 @@ namespace TemplateMultiTenant.Auth.Models
         public string AllowedOrigin { get; set; } //configuração do CORs (de onde será aceito ser chamada as APIs)
         public string ConnectionString { get; set; }
         public SubscriptionType SubscriptionType { get; set; }        
-        public int CNPJ { get; set; }
+        public long CNPJ { get; set; }
         public DateTime DtCreation { get; set; }
         public DateTime? DtLastUpdate { get; set; }
         public DateTime? DtSubscriptionExpiration { get; set; }        

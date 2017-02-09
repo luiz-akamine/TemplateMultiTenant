@@ -38,7 +38,7 @@ namespace TemplateMultiTenant.Auth.Controllers
             //1.Armazenar o valor submetido ao servidor
             //2.Armazenar os erros de validação associados com esses valores
             if (!ModelState.IsValid)
-            {
+            {                
                 return BadRequest(ModelState);
             }
 
@@ -161,6 +161,10 @@ namespace TemplateMultiTenant.Auth.Controllers
             catch (ApplicationException ae)
             {
                 return BadRequest(ae.Message);
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
             }
 
             return Ok();

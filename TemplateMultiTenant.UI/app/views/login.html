@@ -1,0 +1,35 @@
+﻿<form role="form" name="formLogin">
+    <div class="row">        
+        <div class="col-md-4">
+            &nbsp;
+        </div>
+        <div class="col-md-4">
+            <h2 class="form-login-heading">Login</h2>
+            <input type="text" class="form-control" placeholder="Usuário" data-ng-model="loginData.userName" required autofocus style="margin-bottom: 5px">
+            <input type="text" class="form-control" placeholder="Empresa" data-ng-model="loginData.client_id" required style="margin-bottom: 5px">
+            <input type="password" class="form-control" placeholder="Senha" data-ng-model="loginData.password" required>            
+            <!--
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" data-ng-model="loginData.useRefreshTokens"><strong> Utilizar "Refresh Tokens""</strong>
+                </label>
+            </div>
+            -->
+            <button class="btn btn-md btn-info btn-block" style="margin-top: 0.5rem" type="submit" data-ng-click="login(formLogin)">Login</button>
+            <button class="btn btn-md btn-warning btn-block" style="margin-top: 0.5rem" type="button" data-ng-click="resetPassword()">Esqueci a senha</button>
+            <div data-ng-hide="message == ''" class="alert alert-danger" style="margin-top: 0.5rem">
+                {{message}}
+            </div>
+        </div>
+        <!-- Facebook
+        <div class="col-md-4">
+            <h2 class="form-login-heading">Facebook Login</h2>
+            <p>Ou você pode conectar-se com sua conta do Facebook</p>
+            <button class="btn btn-large btn-facebook btn-block" type="button" data-ng-click="authExternalProvider('Facebook')"><i class="fa fa-facebook"></i> | Conecte com Facebook</button>            
+        </div>
+        -->
+        <div class="col-md-4">
+            &nbsp;
+        </div>
+    </div>
+</form>

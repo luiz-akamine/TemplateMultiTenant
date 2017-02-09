@@ -97,7 +97,7 @@ namespace TemplateMultiTenant.Auth.Repository
                     select c).FirstOrDefault();
         }
 
-        public Client FindClientByCNPJ(int cnpj)
+        public Client FindClientByCNPJ(long cnpj)
         {
 
             return (from c in _ctx.Clients
@@ -206,6 +206,9 @@ namespace TemplateMultiTenant.Auth.Repository
                 throw new ApplicationException("incorrect e-mail");
             }
 
+            //Tive problemas com a geração do token de reset de senhan remoto no EC2 da amazon. Assim fazendo o procedimento abaixo, parou de dar erro (500-Internal Server Error)
+            //goto the application pool in iis and (under advanced settings after a right click) setting process model - load user profile = true.
+            
             //Gerando token de reset de senha
             var tokenResetPassword = _userManager.GeneratePasswordResetToken(user.Id);
 

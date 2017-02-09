@@ -36,14 +36,15 @@ namespace TemplateMultiTenant.Auth.Migrations
             {
                 //Client exemplo 1: acessado via website
                 new Client
-                { Id = "ngAuthApp",
+                { Id = "ngTemplateMultiTenant",
                     Secret= Helper.GetHash("teste@1"),
                     Name="WebSite SPA AngularJS",
                     ApplicationType =  Models.ApplicationTypes.JavaScript,
                     Active = true,
                     RefreshTokenLifeTime = 72000, //tempo de vida em minutos do RefreshToken
                     //AllowedOrigin = "http://angularjsauthweb.azurewebsites.net"                    
-                    AllowedOrigin = "http://localhost:50562"
+                    //AllowedOrigin = "http://localhost:5000"
+                    AllowedOrigin = "*"
                 },
                 //Cliente exemplo 2: alguma aplicação desktop
                 new Client

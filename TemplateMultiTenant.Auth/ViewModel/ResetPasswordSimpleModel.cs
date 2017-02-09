@@ -1,4 +1,5 @@
 ﻿//Classe POCO contendo propriedades necessárias para autenticação do usuário
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace TemplateMultiTenant.Auth.ViewModel
@@ -19,7 +20,7 @@ namespace TemplateMultiTenant.Auth.ViewModel
         public string ClientId { get; set; }
 
         [Required]
-        public int CNPJ { get; set; }
+        public long CNPJ { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "O {0} deve conter {2} caracteres no mínimo.", MinimumLength = 6)]
