@@ -71,7 +71,7 @@ public class SimpleRefreshTokenProvider : IAuthenticationTokenProvider
     {
         //Configurando "access control allowed origin" / CORs
         var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin");
-        context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
+        //context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
 
         //Adquirindo hash do token, que é como está gravado na tabela RefreshTokens
         string hashedTokenId = Helper.GetHash(context.Token);

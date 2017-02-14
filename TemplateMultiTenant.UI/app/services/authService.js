@@ -18,7 +18,8 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
     var _authentication = {
         isAuth: false,          //Informa se há usuário autenticado   
         userName: "",           //Guarda nome de usuário
-        useRefreshTokens: false //Verifica se usuário está configurado para utilizar refresh token
+        clientID: "",           //Nome da companhia
+        useRefreshTokens: true  //Verifica se usuário está configurado para utilizar refresh token
     };
 
     //Inicialização das informações referentes a autenticação do usuário externo (Facebook)
@@ -100,7 +101,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
             .then(function (response) {                
                 //Aramazenando token/usuário no localStorage do browser
                 //if (loginData.useRefreshTokens) {
-                localStorageService.set('authorizationData', { token: response.data.access_token, userName: loginData.userName, refreshToken: response.data.refresh_token, useRefreshTokens: true });
+                localStorageService.set('authorizationData', { token: response.data.access_token, userName: loginData.userName, clientId: loginData.client_id, refreshToken: response.data.refresh_token, useRefreshTokens: true });
                 //}
                 //else {
                 //    localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName, refreshToken: "", useRefreshTokens: false });
@@ -111,7 +112,9 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
                 //Armazenando username logado
                 _authentication.userName = loginData.userName;
                 //Setando se usuário utiliza refresh token
-                //_authentication.useRefreshTokens = loginData.useRefreshTokens;
+                _authentication.useRefreshTokens = loginData.useRefreshTokens;
+                //
+                _authentication.clientID = loginData.client_id;
 
                 deferred.resolve(response);
         },
@@ -143,6 +146,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         _authentication.isAuth = false;
         _authentication.userName = "";
         _authentication.useRefreshTokens = false;
+        _authentication.clientID = "";
     };
 
     //Atualiza localStorage
@@ -153,11 +157,13 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
             _authentication.isAuth = true;
             _authentication.userName = authData.userName;
             _authentication.useRefreshTokens = authData.useRefreshTokens;
+            _authentication.clientID = authData.clientId;
         }
     }
 
     //Método que realiza a renovação do refresh token
     var _refreshToken = function () {
+        debugger;
         //Criando Promise a ser retornada pela função
         var deferred = $q.defer();
 
@@ -168,17 +174,18 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
             //Checando se utiliza Refresh Token
             //if (authData.useRefreshTokens) {
                 //Caso utilize, montando url a ser enviado no body da requisição que renova o refresh token
-                var data = "grant_type=refresh_token&refresh_token=" + authData.refreshToken + "&client_id=" + ngAuthSettings.clientId;
+            var data = "grant_type=refresh_token&refresh_token=" + authData.refreshToken + "&client_id=" + authData.clientId;
                 //limpando localStorage para posterior atualização dos dados da autenticação
                 localStorageService.remove('authorizationData');
                 //Requisitando novo Refresh Token
-                $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).then(function (response) {
-                    //Requisição OK, guardando informações no localStorage
-                    localStorageService.set('authorizationData', { token: response.access_token, userName: response.userName, refreshToken: response.refresh_token, useRefreshTokens: true });
+                $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).then(
+                    function (response) {
+                        debugger;
+                        //Requisição OK, guardando informações no localStorage
+                        localStorageService.set('authorizationData', { token: response.data.access_token, userName: response.data.userName, clientId: authData.clientId, refreshToken: response.data.refresh_token, useRefreshTokens: true });
 
-                    deferred.resolve(response);
-
-                }).error(function (err, status) {
+                        deferred.resolve(response);
+                },  function (err, status) {
                     _logOut();
                     deferred.reject(err);
                 });

@@ -99,6 +99,7 @@
     <Content Include="app\components\mask.min.js" />
     <Content Include="app\components\ngCpfCnpj.js" />
     <Content Include="app\controllers\associateController.js" />
+    <Content Include="app\controllers\modalController.js" />
     <Content Include="app\controllers\resetpasswordController.js" />
     <Content Include="app\controllers\homeController.js" />
     <Content Include="app\controllers\indexController.js" />
@@ -114,6 +115,7 @@
     <Content Include="app\views\associate.html" />
     <Content Include="app\views\home.html" />
     <Content Include="app\views\login.html" />
+    <Content Include="app\views\modalDialog.html" />
     <Content Include="app\views\products.html" />
     <Content Include="app\views\refresh.html" />
     <Content Include="app\views\resetpassword.html" />
@@ -148,6 +150,8 @@
     <Content Include="scripts\angular-local-storage.js" />
     <Content Include="scripts\angular-local-storage.min.js" />
     <Content Include="scripts\angular-mocks.js" />
+    <Content Include="scripts\angular-modal-service.js" />
+    <Content Include="scripts\angular-modal-service.min.js" />
     <Content Include="scripts\angular-route.js" />
     <Content Include="scripts\angular-route.min.js" />
     <Content Include="scripts\angular.js" />

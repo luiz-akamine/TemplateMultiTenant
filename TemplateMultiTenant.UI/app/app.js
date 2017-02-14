@@ -1,4 +1,4 @@
-﻿var app = angular.module('TemplateMultiTenantApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'ui.mask', 'ngCpfCnpj']);
+﻿var app = angular.module('TemplateMultiTenantApp', ['ngRoute', 'LocalStorageModule', 'ngAnimate', 'angular-loading-bar', 'angularModalService', 'ui.mask', 'ui.bootstrap', 'ngCpfCnpj']);
 
 //Configurações das rotas da aplicação
 app.config(function ($routeProvider, $httpProvider) {

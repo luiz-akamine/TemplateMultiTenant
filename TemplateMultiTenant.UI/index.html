@@ -16,12 +16,12 @@
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" data-ng-controller="indexController">
         <div class="container">
             <div class="navbar-header">
-                <button class="btn btn-success navbar-toggle" data-ng-click="navbarExpanded = !navbarExpanded">
+                <button class="btn btn-success navbar-toggle" data-ng-click="toggle()" data-toggle="collapse" data-target="#navbar" id="btnToggle">
                     <span class="glyphicon glyphicon-chevron-down"></span>
                 </button>
                 <a class="navbar-brand" href="#!/">Home</a>
             </div>
-            <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
+            <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav navbar-right">
                     <!--Visibilidade de alguns botões do menu de acordo se existe usuário autenticado ou não-->
                     <li data-ng-hide="!authentication.isAuth"><a href="#!">Bem-vindo {{authentication.userName}}</a></li>
@@ -66,20 +66,25 @@
     <!--Rodapé Fim-->
 
     <!-- 3rd party libraries -->
+    <script src="scripts/jquery-1.9.1.min.js"></script>
     <script src="scripts/angular.js"></script>
+    <script src="scripts/bootstrap.js"></script>
     <script src="scripts/angular-route.js"></script>
     <script src="scripts/angular-local-storage.min.js"></script>
+    <script src="scripts/angular-modal-service.js"></script>
     <script src="scripts/loading-bar.min.js"></script>
-    <script src="scripts/momentjs.min.js"></script>
+    <script src="scripts/momentjs.min.js"></script>    
     <script src="app/components/mask.min.js"></script>
     <script src="app/components/ngCpfCnpj.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.7.0.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-animate.min.js"></script>
     <!-- Load app main script -->
     <script src="app/app.js"></script>
     <!-- Load services -->
     <script src="app/services/authInterceptorService.js"></script>
     <script src="app/services/AuthService.js"></script>
     <script src="app/services/productsService.js"></script>
-    <script src="app/services/tokensManagerService.js"></script>
+    <script src="app/services/tokensManagerService.js"></script>    
         
     <!-- Load controllers -->
     <script src="app/controllers/indexController.js"></script>
@@ -91,5 +96,6 @@
     <script src="app/controllers/tokensManagerController.js"></script>
     <script src="app/controllers/associateController.js"></script>            
     <script src="app/controllers/resetpasswordController.js"></script>            
+    <script src="app/controllers/modalController.js"></script>    
 </body>
 </html>

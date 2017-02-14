@@ -6,7 +6,7 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
         userName: "",
         password: "",
         client_id: "",
-        useRefreshTokens: false
+        useRefreshTokens: true
     };
 
     $scope.message = "";
