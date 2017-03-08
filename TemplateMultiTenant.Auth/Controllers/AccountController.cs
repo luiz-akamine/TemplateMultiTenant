@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
+using TemplateMultiTenant.Auth.Models;
 using TemplateMultiTenant.Auth.Repository;
 using TemplateMultiTenant.Auth.Results;
 using TemplateMultiTenant.Auth.ViewModel;
@@ -203,31 +204,64 @@ namespace TemplateMultiTenant.Auth.Controllers
                 return BadRequest("External user is already registered");
             }
 
+            //cadastrando "Client" que terá o mesmo nome do email            
+            using (var repAuth = new AuthRepository())
+            {
+                try
+                {
+                    repAuth.RegisterClient(
+                        new ClientModel()
+                        {
+                            Id = model.Email,
+                            CNPJ = 0,
+                            Name = model.UserName,
+                            SubscriptionType = 0
+                        }
+                    );
+                }
+                catch
+                {
+                    //nothing
+                }
+
+                //cadastrando novo usuário
+                user = await repAuth.RegisterUserExt(
+                    new UserModel()
+                    {
+                        ClientId = model.Email,                
+                        Email = model.Email,
+                        UserName = model.Email
+                    }
+                );
+            }
+
+            /*
             //Cadastrando novo usuário
-            user = new IdentityUser() { UserName = model.UserName };
+            user = new IdentityUser() { UserName = model.Email };
             //Salvando usuário sem password (AspNetUsers)
             IdentityResult result = await _repo.CreateAsync(user);
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
+            */
 
             var info = new ExternalLoginInfo()
             {
                 //Criando registro em AspNetUserLogins
-                DefaultUserName = model.UserName,
+                DefaultUserName = model.Email,
                 Login = new UserLoginInfo(model.Provider, verifiedAccessToken.user_id)
                 //Login = new UserLoginInfo(model.Provider, model.UserName)
             };
 
-            result = await _repo.AddLoginAsync(user.Id, info.Login);
+            IdentityResult result = await _repo.AddLoginAsync(user.Id, info.Login);
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
 
             //Gerando token de acesso para devolver a nossa aplicação 
-            var accessTokenResponse = GenerateLocalAccessTokenResponse(model.UserName);
+            var accessTokenResponse = GenerateLocalAccessTokenResponse(model.Email);
 
             return Ok(accessTokenResponse);
         }       
@@ -284,12 +318,13 @@ namespace TemplateMultiTenant.Auth.Controllers
             bool hasRegistered = user != null;
 
             //Montando URI para redirecionamento que será fornecida para a aplicação 
-            redirectUri = string.Format("{0}#external_access_token={1}&provider={2}&haslocalaccount={3}&external_user_name={4}",
+            redirectUri = string.Format("{0}#external_access_token={1}&provider={2}&haslocalaccount={3}&external_user_name={4}&email={5}",
                                             redirectUri,
                                             externalLogin.ExternalAccessToken,
                                             externalLogin.LoginProvider,
                                             hasRegistered.ToString(),
-                                            externalLogin.UserName);
+                                            externalLogin.UserName,
+                                            externalLogin.Email);
 
             return Redirect(redirectUri);
         }
@@ -399,7 +434,7 @@ namespace TemplateMultiTenant.Auth.Controllers
             {
                 //You can get it from here: https://developers.facebook.com/tools/accesstoken/
                 //More about debug_token here: http://stackoverflow.com/questions/16641083/how-does-one-get-the-app-access-token-for-debug-token-inspection-on-facebook
-                var appToken = "169113803505203|nZGcbXkuRakH8yL6SXw3XN3HIAc";
+                var appToken = "336513216749674|2UJtXxqQwlgYzCYGMLgfD_yDPSc";
                 verifyTokenEndPoint = string.Format("https://graph.facebook.com/debug_token?input_token={0}&access_token={1}", accessToken, appToken);
             }
             else
@@ -445,6 +480,14 @@ namespace TemplateMultiTenant.Auth.Controllers
 
             identity.AddClaim(new Claim(ClaimTypes.Name, userName));
             identity.AddClaim(new Claim("role", "user"));
+
+            //buscando string de conexao
+            string connectionString = "";
+            using (AuthRepository _repo = new AuthRepository())
+            {
+                connectionString = _repo.FindClient(userName).ConnectionString;
+            }
+            identity.AddClaim(new Claim("connectionstring", connectionString));
 
             var props = new AuthenticationProperties()
             {
@@ -514,6 +557,7 @@ namespace TemplateMultiTenant.Auth.Controllers
             public string ProviderKey { get; set; }
             public string UserName { get; set; }
             public string ExternalAccessToken { get; set; }
+            public string Email { get; set; }
 
             public static ExternalLoginData FromIdentity(ClaimsIdentity identity)
             {
@@ -540,6 +584,7 @@ namespace TemplateMultiTenant.Auth.Controllers
                     ProviderKey = providerKeyClaim.Value,
                     UserName = identity.FindFirstValue(ClaimTypes.Name),
                     ExternalAccessToken = identity.FindFirstValue("ExternalAccessToken"),
+                    Email = identity.FindFirstValue(ClaimTypes.Email)
                 };
             }
         }

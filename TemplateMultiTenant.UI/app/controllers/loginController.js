@@ -58,7 +58,7 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
     $scope.authCompletedCB = function (fragment) {
 
         $scope.$apply(function () {
-
+            debugger;
             if (fragment.haslocalaccount == 'False') {
 
                 authService.logOut();
@@ -66,6 +66,7 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
                 authService.externalAuthData = {
                     provider: fragment.provider,
                     userName: fragment.external_user_name,
+                    email: fragment.email,
                     externalAccessToken: fragment.external_access_token
                 };
 
@@ -77,7 +78,7 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
                 var externalData = { provider: fragment.provider, externalAccessToken: fragment.external_access_token };
                 authService.obtainAccessToken(externalData).then(function (response) {
 
-                    $location.path('/orders');
+                    $location.path('/products');
 
                 },
              function (err) {

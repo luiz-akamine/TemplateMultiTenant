@@ -7,6 +7,7 @@ app.controller('associateController', ['$scope', '$location','$timeout','authSer
 
     //JSON para registro externo
     $scope.registerData = {
+        email: authService.externalAuthData.email,
         userName: authService.externalAuthData.userName,
         provider: authService.externalAuthData.provider,
         externalAccessToken: authService.externalAuthData.externalAccessToken
@@ -35,7 +36,7 @@ app.controller('associateController', ['$scope', '$location','$timeout','authSer
     var startTimer = function () {
         var timer = $timeout(function () {
             $timeout.cancel(timer);
-            $location.path('/orders');
+            $location.path('/products');
         }, 2000);
     }
 

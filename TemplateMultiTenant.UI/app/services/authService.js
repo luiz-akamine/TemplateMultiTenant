@@ -24,6 +24,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
     //Inicialização das informações referentes a autenticação do usuário externo (Facebook)
     var _externalAuthData = {
+        email: "",
         provider: "",
         userName: "",
         externalAccessToken: ""
@@ -203,18 +204,18 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
     var _obtainAccessToken = function (externalData) {
 
         var deferred = $q.defer();
-
+        debugger;
         $http.get(serviceBase + 'api/account/ObtainLocalAccessToken', { params: { provider: externalData.provider, externalAccessToken: externalData.externalAccessToken } }).then(function (response) {
-
-            localStorageService.set('authorizationData', { token: response.access_token, userName: response.userName, refreshToken: "", useRefreshTokens: false });
+            debugger;
+            localStorageService.set('authorizationData', { token: response.data.access_token, userName: response.data.userName, refreshToken: "", useRefreshTokens: false });
 
             _authentication.isAuth = true;
-            _authentication.userName = response.userName;
+            _authentication.userName = response.data.userName;
             _authentication.useRefreshTokens = false;
 
             deferred.resolve(response);
 
-        }).error(function (err, status) {
+        }, function (err, status) {
             _logOut();
             deferred.reject(err);
         });
@@ -230,15 +231,15 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
         $http.post(serviceBase + 'api/account/registerexternal', registerExternalData).then(function (response) {
 
-            localStorageService.set('authorizationData', { token: response.access_token, userName: response.userName, refreshToken: "", useRefreshTokens: false });
+            localStorageService.set('authorizationData', { token: response.data.access_token, userName: response.data.userName, refreshToken: "", useRefreshTokens: false });
 
             _authentication.isAuth = true;
-            _authentication.userName = response.userName;
+            _authentication.userName = response.data.userName;
             _authentication.useRefreshTokens = false;
 
             deferred.resolve(response);
 
-        }).error(function (err, status) {
+        }, function (err, status) {
             _logOut();
             deferred.reject(err);
         });

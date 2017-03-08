@@ -121,6 +121,7 @@
     <Content Include="app\views\resetpassword.html" />
     <Content Include="app\views\signup.html" />
     <Content Include="app\views\tokens.html" />
+    <Content Include="authComplete.html" />
     <Content Include="content\bootstrap-theme.css" />
     <Content Include="content\bootstrap-theme.min.css" />
     <Content Include="content\bootstrap.css" />
@@ -160,6 +161,7 @@
     <Content Include="scripts\angular-route.min.js.map" />
     <Content Include="scripts\angular-local-storage.min.js.map" />
     <None Include="scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="scripts\authComplete.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
     <Content Include="scripts\jquery-1.9.1.js" />

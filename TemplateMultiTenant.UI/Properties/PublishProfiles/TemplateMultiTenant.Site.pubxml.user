@@ -10,7 +10,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="app/app.js">
-      <publishTime>02/13/2017 21:58:08</publishTime>
+      <publishTime>03/07/2017 22:11:17</publishTime>
     </File>
     <File Include="app/components/mask.js">
       <publishTime>02/08/2017 21:54:04</publishTime>
@@ -19,10 +19,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/30/2016 22:46:15</publishTime>
     </File>
     <File Include="app/components/ngCpfCnpj.js">
-      <publishTime>09/06/2015 01:11:34</publishTime>
+      <publishTime>06/09/2015 01:11:34</publishTime>
     </File>
     <File Include="app/controllers/associateController.js">
-      <publishTime>07/18/2016 22:11:14</publishTime>
+      <publishTime>03/06/2017 21:36:57</publishTime>
     </File>
     <File Include="app/controllers/homeController.js">
       <publishTime>07/14/2016 23:01:43</publishTime>
@@ -31,7 +31,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/13/2017 22:45:40</publishTime>
     </File>
     <File Include="app/controllers/loginController.js">
-      <publishTime>02/13/2017 19:45:35</publishTime>
+      <publishTime>03/07/2017 20:42:05</publishTime>
     </File>
     <File Include="app/controllers/modalController.js">
       <publishTime>02/13/2017 21:54:39</publishTime>
@@ -55,10 +55,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/07/2017 21:15:24</publishTime>
     </File>
     <File Include="app/services/authService.js">
-      <publishTime>02/13/2017 20:41:41</publishTime>
+      <publishTime>03/07/2017 20:53:53</publishTime>
     </File>
     <File Include="app/services/modalService.js">
-      <publishTime>02/13/2017 21:26:32</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="app/services/productsService.js">
       <publishTime>02/13/2017 21:51:44</publishTime>
@@ -67,13 +67,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/18/2016 22:09:33</publishTime>
     </File>
     <File Include="app/views/associate.html">
-      <publishTime>07/18/2016 22:13:18</publishTime>
+      <publishTime>03/06/2017 21:48:10</publishTime>
     </File>
     <File Include="app/views/home.html">
       <publishTime>02/02/2017 23:04:08</publishTime>
     </File>
     <File Include="app/views/login.html">
-      <publishTime>02/08/2017 22:32:09</publishTime>
+      <publishTime>02/23/2017 21:31:23</publishTime>
     </File>
     <File Include="app/views/modalDialog.html">
       <publishTime>02/13/2017 22:04:49</publishTime>
@@ -94,13 +94,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/17/2016 12:31:40</publishTime>
     </File>
     <File Include="ApplicationInsights.config">
-      <publishTime>12/06/2016 20:52:13</publishTime>
+      <publishTime>06/12/2016 20:52:13</publishTime>
+    </File>
+    <File Include="authComplete.html">
+      <publishTime>02/23/2017 22:18:52</publishTime>
     </File>
     <File Include="bin/ApplicationInsights.config">
-      <publishTime>12/06/2016 20:52:13</publishTime>
+      <publishTime>06/12/2016 20:52:13</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
-      <publishTime>12/07/2015 19:04:38</publishTime>
+      <publishTime>07/12/2015 19:04:38</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.DependencyCollector.dll">
       <publishTime>06/06/2016 15:40:16</publishTime>
@@ -160,7 +163,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/18/2015 20:19:46</publishTime>
     </File>
     <File Include="bin/TemplateMultiTenant.UI.dll">
-      <publishTime>02/13/2017 21:57:04</publishTime>
+      <publishTime>02/23/2017 22:40:57</publishTime>
     </File>
     <File Include="content/bootstrap-theme.css">
       <publishTime>02/02/2017 20:19:44</publishTime>
@@ -185,6 +188,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="content/bootstrap.min.css.map">
       <publishTime>02/02/2017 20:19:44</publishTime>
+    </File>
+    <File Include="content/font-awesome.min.css">
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="content/loading-bar.css">
       <publishTime>02/02/2017 20:25:03</publishTime>
@@ -223,7 +229,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/07/2017 20:37:13</publishTime>
     </File>
     <File Include="index.html">
-      <publishTime>02/13/2017 22:43:51</publishTime>
+      <publishTime>02/23/2017 21:38:30</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>02/02/2017 20:25:04</publishTime>
@@ -264,6 +270,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="scripts/angular.min.js.map">
       <publishTime>02/02/2017 20:21:32</publishTime>
     </File>
+    <File Include="scripts/authComplete.js">
+      <publishTime>07/18/2016 21:40:52</publishTime>
+    </File>
     <File Include="scripts/bootstrap.js">
       <publishTime>02/02/2017 20:19:43</publishTime>
     </File>
@@ -286,10 +295,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/02/2017 20:25:03</publishTime>
     </File>
     <File Include="scripts/momentjs.min.js">
-      <publishTime>02/09/2016 23:56:58</publishTime>
+      <publishTime>09/02/2016 23:56:58</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>02/13/2017 19:58:20</publishTime>
+      <publishTime>03/06/2017 21:46:57</publishTime>
     </File>
   </ItemGroup>
 </Project>

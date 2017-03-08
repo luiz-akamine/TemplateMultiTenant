@@ -121,12 +121,20 @@ namespace TemplateMultiTenant.Auth.Repository
             if (client == null)
             {
                 throw new ApplicationException("client not found");
-            }            
+            }
 
             // 1) await é um "comando" para o código ficar esperando pela conclusão de uma tarefa até o fim, para aí sim,
             //continuar a execução normal permitindo que outras execuções possam acontecer concomitantemente
             // 2) await só pode ser usado em um método declarado com o modificador async
-            var result = await _userManager.CreateAsync(user, userModel.Password);                        
+            IdentityResult result;
+            if (userModel.Password == null)
+            {
+                result = await _userManager.CreateAsync(user);
+            }
+            else
+            { 
+                result = await _userManager.CreateAsync(user, userModel.Password);
+            }
 
             if (result.Succeeded)
             { 
@@ -141,6 +149,45 @@ namespace TemplateMultiTenant.Auth.Repository
             }
 
             return result;
+        }
+
+        public async Task<IdentityUser> RegisterUserExt(UserModel userModel)
+        {
+            IdentityUser user = new IdentityUser
+            {
+                UserName = userModel.UserName,
+                Email = userModel.Email
+            };
+
+            //Verificando se existe client
+            Client client = FindClientById(userModel.ClientId);            
+
+            // 1) await é um "comando" para o código ficar esperando pela conclusão de uma tarefa até o fim, para aí sim,
+            //continuar a execução normal permitindo que outras execuções possam acontecer concomitantemente
+            // 2) await só pode ser usado em um método declarado com o modificador async
+            IdentityResult result;
+            if (userModel.Password == null)
+            {
+                result = await _userManager.CreateAsync(user);
+            }
+            else
+            {
+                result = await _userManager.CreateAsync(user, userModel.Password);
+            }
+
+            if (result.Succeeded)
+            {
+                //Vinculando usuario ao client
+                UserClient userClient = new UserClient()
+                {
+                    UserName = userModel.UserName,
+                    Client = client
+                };
+                _ctx.UserClients.Add(userClient);
+                _ctx.SaveChanges();
+            }
+
+            return user;
         }
 
         //Método que busca usuário

@@ -61,10 +61,11 @@ namespace TemplateMultiTenant.Auth
             facebookAuthOptions = new FacebookAuthenticationOptions()
             {
                 //Informações do app criado no site developers.facebook
-                AppId = "169113803505203",
-                AppSecret = "a80f762ae2ec965978758460528338f8",
-                Provider = new FacebookAuthProvider()
+                AppId = "336513216749674",
+                AppSecret = "17a8cc8afbcb1ae6341fbb8598f330b5",
+                Provider = new FacebookAuthProvider()                
             };
+            facebookAuthOptions.Scope.Add("email");
             app.UseFacebookAuthentication(facebookAuthOptions);
         }
     }
