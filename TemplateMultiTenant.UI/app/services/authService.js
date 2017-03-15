@@ -36,7 +36,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
             "Id": registration.client_id,
             "Name": registration.companyName,
             "CNPJ": registration.cnpj,
-            "SubscriptionType": 0
+            "SubscriptionType": registration.subscriptionType
         };
     };
 

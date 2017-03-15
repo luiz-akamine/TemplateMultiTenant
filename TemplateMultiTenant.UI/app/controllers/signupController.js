@@ -10,11 +10,13 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
     $scope.registration = {
         userName: "",
         password: "",
-        confirmPassword: ""
+        confirmPassword: "",
+        subscriptionType: 0
     };
 
     //Função que tenta realizar o registro do novo usuário, chamando o serviço authService que realiza o registro chamando a WEB API no server
     $scope.signUp = function (form) {
+        debugger;
         if (form.$valid) {
             $scope.errors = [];
             $scope.message = '';

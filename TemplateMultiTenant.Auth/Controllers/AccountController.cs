@@ -399,9 +399,12 @@ namespace TemplateMultiTenant.Auth.Controllers
             }
 
             //if (!string.Equals(client.AllowedOrigin, redirectUri.GetLeftPart(UriPartial.Authority).Replace("https", "http"), StringComparison.OrdinalIgnoreCase))
-            if (!string.Equals(client.AllowedOrigin, redirectUri.GetLeftPart(UriPartial.Authority), StringComparison.OrdinalIgnoreCase))
-            {
-                return string.Format("The given URL '{1}' is not allowed by Client_id '{0}' configuration.", clientId, redirectUri.GetLeftPart(UriPartial.Authority));
+            if (!client.AllowedOrigin.Equals("*"))
+            { 
+                if (!string.Equals(client.AllowedOrigin, redirectUri.GetLeftPart(UriPartial.Authority), StringComparison.OrdinalIgnoreCase))
+                {
+                    return string.Format("The given URL '{1}' is not allowed by Client_id '{0}' configuration.", clientId, redirectUri.GetLeftPart(UriPartial.Authority));
+                }
             }
 
             redirectUriOutput = redirectUri.AbsoluteUri;
