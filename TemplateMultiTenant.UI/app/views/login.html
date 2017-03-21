@@ -1,12 +1,33 @@
-﻿<form role="form" name="formLogin">
+﻿<div class="row">
+    <div class="col-md-2">
+        &nbsp;
+    </div>
+    <div class="col-md-8">
+        <ul class="signup-type" style="display: flex; align-content: space-between; margin-top: 0">
+            <li style="flex: 0.5">
+                <input type="radio" id="a25" name="amount" value="1" data-ng-model="loginType" />
+                <label for="a25" class="text-center h5" style="padding-top: 1.5rem">Pessoa Física</label>
+            </li>
+            <li style="flex: 0.5">
+                <input type="radio" id="a50" name="amount" value="2" data-ng-model="loginType" />
+                <label for="a50" class="text-center h5" style="padding-top: 1.5rem">Pessoa Juridica</label>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-2">
+        &nbsp;
+    </div>
+</div>
+
+<form role="form" name="formLogin" ng-show="(loginType == 1) || (loginType == 2)">
     <div class="row">        
-        <div class="col-md-2">
+        <div ng-class="{'col-md-2': (loginType == 1), 'col-md-4': (loginType == 2)}">
             &nbsp;
         </div>
         <div class="col-md-4">
             <h2 class="form-login-heading">Login</h2>
             <input type="text" class="form-control" placeholder="Usuário" data-ng-model="loginData.userName" required autofocus style="margin-bottom: 5px">
-            <input type="text" class="form-control" placeholder="Empresa" data-ng-model="loginData.client_id" required style="margin-bottom: 5px">
+            <input type="text" class="form-control" placeholder="Empresa" data-ng-model="loginData.client_id" ng-required="(loginType == 2)" style="margin-bottom: 5px" ng-show="(loginType == 2)">
             <input type="password" class="form-control" placeholder="Senha" data-ng-model="loginData.password" required>            
             <!--
             <div class="checkbox">
@@ -22,7 +43,7 @@
             </div>
         </div>
         <!-- Facebook -->
-        <div class="col-md-4">
+        <div class="col-md-4" ng-show="(loginType == 1)">
             <h2 class="form-login-heading">Facebook Login</h2>
             <p>Ou você pode conectar-se com sua conta do Facebook</p>
             <button class="btn btn-large btn-facebook btn-block" type="button" data-ng-click="authExternalProvider('Facebook')"><i class="fa fa-facebook"></i> | Conecte com Facebook</button>            

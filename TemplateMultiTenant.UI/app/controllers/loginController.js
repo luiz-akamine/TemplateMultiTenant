@@ -1,5 +1,12 @@
 ﻿'use strict';
-app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuthSettings', function ($scope, $location, authService, ngAuthSettings) {
+app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuthSettings', 'shareDataService', function ($scope, $location, authService, ngAuthSettings, shareDataService) {
+
+    //1 = Pessoa Física | 2 - Pessoa Juridica
+    $scope.loginType = 0;
+    if (shareDataService.getValue() > 0) {
+        $scope.loginType = shareDataService.getValue();
+        shareDataService.setValue(0);
+    }
 
     //objeto JSON que será enviado para a WEB API no server que realiza login
     $scope.loginData = {
@@ -15,6 +22,12 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
     $scope.login = function (form) {
 
         if (form.$valid) {
+
+            //Tratamento específico pessoa física
+            if ($scope.loginType == 1) {
+                $scope.loginData.client_id = $scope.loginData.userName;                
+            };
+
             //Chamando serviço authSerivce que chama WEB API no server que realiza login
             authService.login($scope.loginData).then(function (response) {
 
